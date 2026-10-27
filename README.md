@@ -30,6 +30,10 @@ The demo uses fictional leads and supports:
 
 To run it, download the repository and open `demos/real-estate-dashboard.html` in a modern browser. It has no package dependencies or backend. Changes are held in the current page session only; it is a front-end prototype, not a production CRM.
 
+## Case study
+
+**[WhatsApp property data extraction](docs/CASE_STUDY_WHATSAPP_PROPERTY_EXTRACTION.md)** — a sanitized, honest walkthrough of the real-estate workflow problem, processing steps, privacy boundary, and operator-reported throughput. No private client data is included, and the reported throughput is not presented as an independently audited benchmark.
+
 ## Capabilities
 
 - **Website development:** responsive business websites and service-focused landing pages.
