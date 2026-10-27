@@ -89,8 +89,8 @@ For local development, a simple static server is also suitable.
 
 ## Contact
 
-- **Website:** https://sananexoraai.lovable.app/
-- **LinkedIn:** https://www.linkedin.com/in/sana-ullah-4447a0427/
+- **Website:** https://nexoraaihq.com/
+- **LinkedIn:** https://www.linkedin.com/in/nexoraaisolution/
 - **GitHub:** https://github.com/AIwithsanaullah
 
 For business enquiries, connect through LinkedIn or the website above.
