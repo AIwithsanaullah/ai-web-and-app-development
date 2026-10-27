@@ -18,7 +18,7 @@ This repository contains a static portfolio website, an interactive front-end da
 
 ## Try the interactive demo
 
-**[Open the Real Estate Lead Dashboard source](demos/real-estate-dashboard.html)**
+**[Open the Real Estate Lead Dashboard source](demos/real-estate-dashboard.html)** · [Dashboard on GitHub](https://github.com/AIwithsanaullah/ai-web-and-app-development/blob/main/demos/real-estate-dashboard.html)
 
 The demo uses fictional leads and supports:
 - Search by lead name, property, budget, or source
@@ -65,7 +65,7 @@ To run it, download the repository and open `demos/real-estate-dashboard.html` i
 1. Clone or download this repository.
 2. Open `index.html` in a browser.
 3. Open `demos/real-estate-dashboard.html` to try the dashboard demo.
-4. To publish the static portfolio, open **Settings → Pages** in GitHub, choose **Deploy from a branch**, select `main` and `/(root)`, then save. For the dashboard, use its resulting GitHub Pages URL under `/demos/real-estate-dashboard.html`.
+4. A GitHub Actions deployment workflow is included at `.github/workflows/pages.yml`. To publish it, open **Settings → Pages** and set the build/deployment source to **GitHub Actions**. Then open **Actions**, confirm the Pages workflow completes successfully, and test `https://aiwithsanaullah.github.io/ai-web-and-app-development/` plus `/demos/real-estate-dashboard.html`. Until that workflow succeeds, use the source links above as the reliable demo access.
 
 No package installation is required for these static pages.
 
