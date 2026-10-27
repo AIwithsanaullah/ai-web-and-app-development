@@ -12,44 +12,58 @@
 
 ## Overview
 
-I'm **Sana Ullah**, an AI Automation & Agentic AI Engineer and founder of **NEXORA AI Solutions**. I create digital experiences that bring together clean interfaces, useful business workflows, and AI integrations.
+I'm **Sana Ullah**, an AI Automation & Agentic AI Engineer and founder of **NEXORA AI Solutions**. I work on digital experiences that bring together clear interfaces, business workflows, and practical AI integrations.
 
-This repository contains my web portfolio, interface explorations, and the development direction for business and mobile applications.
+This repository contains a static portfolio website, an interactive front-end dashboard demonstration, and planning documents for future product work.
+
+## Try the interactive demo
+
+**[Open the Real Estate Lead Dashboard source](demos/real-estate-dashboard.html)**
+
+The demo uses fictional leads and supports:
+- Search by lead name, property, budget, or source
+- Filter by lead status and property type
+- Add a sample lead through a validated form
+- Update a lead's pipeline status
+- See summary counts update automatically
+- Use the layout on desktop or mobile screens
+
+To run it, download the repository and open `demos/real-estate-dashboard.html` in a modern browser. It has no package dependencies or backend. Changes are held in the current page session only; it is a front-end prototype, not a production CRM.
 
 ## Capabilities
 
 - **Website development:** responsive business websites and service-focused landing pages.
-- **Web application design:** dashboards, enquiry management, forms, and workflow-focused interfaces.
-- **Mobile product planning:** user journeys, screen layouts, and mobile-first experiences.
+- **Web application interfaces:** dashboards, enquiry management, forms, and workflow-focused UI.
+- **Mobile-first product planning:** user journeys, screen layouts, and feature requirements.
 - **AI integrations:** conversational assistants, API-connected experiences, and workflow automation.
-- **Integration foundations:** REST API concepts, webhooks, JSON, and connected business services.
+- **Integration foundations:** REST APIs, webhooks, JSON, and connected business services.
 - **User experience:** clear navigation, accessible layouts, and responsive design.
 
-## Featured work
+## Selected work
 
-| Project | Focus |
+| Project | Status and focus |
 |---|---|
 | [NEXORA AI Solutions](https://nexoraaihq.com/) | Business website for AI voice agents, WhatsApp AI agents, chatbots, and automation services |
-| Portfolio website | Responsive portfolio with project showcases and contact links |
-| Website assistant interface | UI exploration for an AI-powered customer support experience |
-| Real estate workspace | Interface exploration for property enquiries and follow-up management |
-| Mobile business companion | Mobile-first product exploration for everyday business tasks |
+| [Portfolio website](index.html) | Static responsive portfolio; can be opened locally |
+| [Real estate lead dashboard](demos/real-estate-dashboard.html) | Interactive front-end demo with fictional data; no backend |
+| [WhatsApp AI Business Agent](https://github.com/AIwithsanaullah/whatsapp-ai-business-agent) | Documented reference blueprint, prompt, synthetic examples, and privacy checklist |
+| [AI Real Estate Receptionist](https://github.com/AIwithsanaullah/ai-real-estate-receptionist) | Reference design, prompt, setup checklist, and acceptance tests |
+| [AI Voice Calling Agent](https://github.com/AIwithsanaullah/ai-voice-calling-agent) | Voice-agent reference design, prompt, setup checklist, and acceptance tests |
 
 ## Tools and technologies
 
-**Workflow and AI integrations:** n8n, webhooks, JSON, REST API concepts, OpenAI integrations, Supabase, Google Workspace integrations.
+**Workflow and AI integrations:** n8n, webhooks, JSON, REST API integrations, OpenAI integrations, Supabase, Google Workspace integrations.
 
-**Web foundations:** HTML, CSS, responsive layouts, accessibility, and lightweight JavaScript interactions.
+**Web foundations used in this repository:** HTML, CSS, responsive layouts, accessible navigation, and JavaScript interactions.
 
-Tools and frameworks are selected for the requirements of each project.
-
-## Run locally
+## Run the portfolio locally
 
 1. Clone or download this repository.
 2. Open `index.html` in a browser.
-3. To publish it, open **Settings → Pages** in GitHub, choose **Deploy from a branch**, select `main` and `/(root)`, then save.
+3. Open `demos/real-estate-dashboard.html` to try the dashboard demo.
+4. To publish the static portfolio, open **Settings → Pages** in GitHub, choose **Deploy from a branch**, select `main` and `/(root)`, then save. For the dashboard, use its resulting GitHub Pages URL under `/demos/real-estate-dashboard.html`.
 
-No package installation is required for the static portfolio.
+No package installation is required for these static pages.
 
 ## Repository structure
 
@@ -60,6 +74,8 @@ No package installation is required for the static portfolio.
 ├── script.js
 ├── assets/
 │   └── favicon.svg
+├── demos/
+│   └── real-estate-dashboard.html
 └── docs/
     ├── PROJECT_ROADMAP.md
     └── PROJECT_BRIEF_TEMPLATE.md
@@ -72,6 +88,7 @@ No package installation is required for the static portfolio.
 - Provide responsive layouts and accessible navigation.
 - Validate forms and handle loading, empty, and error states.
 - Document setup instructions and meaningful project changes.
+- Label prototypes clearly and do not present them as production deployments.
 
 ## Contact
 
