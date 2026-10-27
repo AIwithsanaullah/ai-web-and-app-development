@@ -1,82 +1,62 @@
 # Web & App Development Roadmap
 
-This roadmap separates currently available work from ideas that still need implementation. It is intentionally honest about project status.
+## Portfolio website
 
-## 1. Portfolio website
+**Objective:** Present web development, app design, and AI integration work through a responsive portfolio.
 
-**Status:** Initial static version in this repository.
+- Responsive page layout and mobile navigation
+- Accessible skip link and keyboard-friendly navigation
+- Reduced-motion preference support
+- Search and social-sharing metadata
+- Project showcase and contact links
+- Publish with GitHub Pages and add the live URL
+- Add screenshots from working projects as they become available
 
-**Goal:** Present web, app, and AI-integration capabilities in a clear, mobile-friendly portfolio.
+## AI website assistant
 
-**Acceptance checklist**
-- [x] Responsive page layout
-- [x] Accessible skip link and keyboard-friendly navigation
-- [x] Reduced-motion preference support
-- [x] SEO title and description
-- [x] Clear project status labels
-- [ ] Cross-browser and real-device testing
-- [ ] Add screenshots from real working projects
-- [ ] Publish with GitHub Pages and add the live URL
+**Objective:** Help website visitors find service information and identify a useful next step.
 
-## 2. AI website assistant
+### Build sequence
+1. Define approved source material and supported questions.
+2. Design chat states for loading, errors, and empty responses.
+3. Connect the interface to an AI API through a server-side endpoint.
+4. Add a handoff path for questions that need human support.
+5. Test response quality, privacy, and prompt-injection handling.
 
-**Status:** Concept only.
-
-**Goal:** Help website visitors find service information and identify an appropriate next step.
-
-**First version**
-- Define approved source material and questions the assistant can answer.
-- Design a chat interface with loading, error, and empty states.
-- Connect to an AI API through a server-side endpoint; never expose API secrets in browser code.
-- Add a visible handoff path for questions the assistant cannot answer.
-- Test inaccurate answers, prompt injection, and privacy-sensitive questions.
-
-**Definition of done**
-- A working demo uses an explicitly configured backend.
+### Release criteria
 - Responses are grounded in approved content.
-- Errors and limitations are visible to the user.
-- No API key or private data is committed to the repository.
+- Errors and limitations are handled clearly.
+- API secrets remain on the server and are not committed to the repository.
 
-## 3. Real estate workspace
+## Real estate workspace
 
-**Status:** Planned product concept.
+**Objective:** Organize property enquiries and follow-up work in a simple interface.
 
-**Goal:** Organize property enquiries and follow-up work in a simple interface.
+### Initial feature set
+- Property and enquiry list using fictional demo data
+- Search and filters for status and property type
+- Enquiry details and follow-up status
+- Form validation and clear empty and error states
+- Database integration after data structure and access rules are defined
 
-**Potential first version**
-- Property and enquiry list using synthetic demo data.
-- Search and filters for status and property type.
-- Enquiry details and follow-up status.
-- Form validation and clear empty/error states.
-- Optional database integration after the data model and access rules are defined.
+Public examples must use fictional listings and contact details. Do not publish client WhatsApp messages, owner or dealer phone numbers, or private property records.
 
-**Privacy rule:** Public examples must use fictional listings and contact details. Do not upload client WhatsApp messages, owner/dealer phone numbers, or private property records.
+## Mobile business companion
 
-## 4. Mobile business companion
+**Objective:** Make frequently used business tasks easier to access on a phone.
 
-**Status:** Planned product concept.
-
-**Goal:** Make a small set of business tasks easier to access on a phone.
-
-**Before implementation**
-- Identify target users and the top three tasks.
-- Sketch navigation and key screens.
-- Decide whether a responsive web app or native/cross-platform app is appropriate.
-- Define authentication, data storage, and API requirements.
-- Test a clickable prototype before committing to a framework.
-
-## Suggested delivery sequence
-
-1. Test and publish the portfolio.
-2. Build a small interactive web app with synthetic data.
-3. Add a working AI assistant with a secure server-side integration.
-4. Use feedback to choose the mobile app concept and implementation path.
+### Planning sequence
+1. Identify target users and the three most important tasks.
+2. Map navigation and key screens.
+3. Compare a responsive web app with a native or cross-platform app.
+4. Define authentication, data storage, and API requirements.
+5. Test a clickable prototype before choosing the implementation framework.
 
 ## Release checklist
 
-- [ ] Project status matches what actually works.
-- [ ] No credentials or private customer data are present.
-- [ ] Layout works at mobile, tablet, and desktop widths.
-- [ ] Links, buttons, forms, and keyboard navigation are tested.
-- [ ] README includes setup and demo instructions.
-- [ ] Screenshots are from the real build, not misleading mockups.
+- Project descriptions accurately reflect the current implementation.
+- No credentials or private customer data are included.
+- Layouts are usable on mobile, tablet, and desktop.
+- Links, buttons, forms, and keyboard navigation are tested.
+- Setup and demo instructions are documented.
+- Screenshots reflect the actual interface.
