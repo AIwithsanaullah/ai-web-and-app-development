@@ -1,0 +1,1218 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        -288
+      ],
+      "id": "2dd0ea74-2898-4fec-9695-8e5b133d938a",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7cc09ed3-90b4-47c2-98d3-0bd013b74e1c",
+              "name": "chatInput",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -1088,
+        -288
+      ],
+      "id": "1a9c984b-e05b-4b2e-9ee7-4e5621061248",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -880,
+        -400
+      ],
+      "id": "6241d2ae-370d-4b3e-be4e-b8d2fa47325c",
+      "name": "OpenAI Chat Model"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Webhook').item.json.body.message }}",
+        "options": {
+          "systemMessage": "You are the Real Estate Summary Agent.\n\nYour job is to read the user's complete chatInput and convert it into a clean, structured production brief for the next AI agents.\n\nThe user's chatInput is the ONLY source of truth.\n\nDo not invent, assume, correct, enhance, or reinterpret any information.\n\nIMPORTANT RULES:\n\n1. Preserve the user's original wording and meaning.\n2. Do not turn phrases into more specific property labels unless the user explicitly states them.\n3. Do not infer property location, phase, plot number, road width, property type, status, or any other relationship.\n4. Do not split or rearrange addresses.\n5. If the user provides an address such as \"23H PHASE 1 DHA LAHORE\", keep it exactly as written and treat it as an address when it is provided as business/contact information.\n6. Do not change awkward, unusual, duplicated, or grammatically incorrect wording. Preserve it exactly.\n7. Do not create marketing claims.\n8. Do not create a caption.\n9. Do not create an image-generation prompt.\n10. Do not add information that is not present in the user's chatInput.\n11. Capture the user's creative and visual instructions separately from the factual property information.\n12. If the user explicitly says certain details must appear on the image, include those exact details under IMAGE CONTENT.\n13. If the user gives visual instructions such as colors, style, composition, mood, or type of image, include them under VISUAL DIRECTION.\n14. Keep phone numbers exactly as provided.\n15. Keep company names, agent names, addresses, dates, experience claims, and other business information exactly as provided.\n16. Do not use JSON.\n17. Do not use code blocks.\n18. Do not output escaped characters such as \\n, \\n\\n, \\/, or similar formatting codes.\n19. Use real line breaks and clean readable text.\n20. Do not add explanations before or after the required sections.\n\nOUTPUT EXACTLY THESE FIVE SECTIONS:\n\nPROPERTY FACTS\n\nList only the factual property/listing information explicitly provided by the user.\n\nIMAGE CONTENT\n\nList every detail the user explicitly wants displayed on the image. Preserve the wording exactly.\n\nBUSINESS / CONTACT\n\nList agent, company, experience, address, phone number, or other business/contact information explicitly provided by the user.\n\nVISUAL DIRECTION\n\nList all visual instructions explicitly provided by the user, including colors, style, composition, subject representation, image style, and overall visual direction.\n\nUSER INSTRUCTIONS\n\nList the user's requested action or purpose for the post/image, preserving the meaning of the original instruction.\n\nFINAL REQUIREMENT:\n\nThe output must be clean human-readable text with actual line breaks.\n\nNever output literal \"\\n\", \"\\n\\n\", \"\\/\", JSON formatting, escaped formatting, or placeholder/dummy formatting.\n\nDo not omit any meaningful information from the user's chatInput.\nDo not add any information that is not supported by the user's chatInput.\n\n\n# OWNER IMAGE — EXACT UNCHANGED ASSET\n\nOWNER IMAGE URL:\nhttps://example.com/replace-with-owner-image.jpg\n\nThe image provided at this URL is an **EXACT ORIGINAL ASSET**.\n\nIt must be inserted into the final real-estate post **exactly as it appears in the original image**.\n\n## ABSOLUTE PRESERVATION RULE\n\n**DO NOT CHANGE THE OWNER IMAGE IN ANY WAY — NOT EVEN THE SMALLEST VISUAL DETAIL.**\n\nThe owner image must remain **100% visually identical to the original source image**.\n\nDO NOT:\n\n* Change the person's face\n* Change facial features\n* Change skin tone\n* Change skin color\n* Change hair\n* Change hair color\n* Change clothing\n* Change suit color\n* Change shirt color\n* Change tie\n* Change background inside the owner image\n* Change lighting inside the owner image\n* Change brightness\n* Change contrast\n* Change saturation\n* Change colors\n* Apply filters\n* Apply color grading\n* Retouch the face\n* Smooth the skin\n* Sharpen the image\n* Blur the image\n* Enhance the image\n* Stylize the image\n* Cartoonize the image\n* Recreate the person\n* Generate a new person\n* Replace the person\n* Redraw the image\n* Reinterpret the image\n* Add AI effects\n* Remove anything from the image\n* Add anything to the image\n* Crop any part of the image\n* Distort the image\n* Stretch the image\n* Warp the image\n* Modify any pixels or visual content of the original image\n\n**DO NOT GENERATE A NEW VERSION OF THE OWNER.**\n\n**DO NOT USE THE OWNER IMAGE AS A REFERENCE FOR GENERATING ANOTHER PERSON.**\n\nThe URL image itself must be used as the actual image asset.\n\n## LOGO / BRAND REPRESENTATION\n\nTreat this exact owner image as a **professional owner/agent identity logo or brand representation** within the real-estate advertisement.\n\nThe owner image should be inserted as a small professional visual element in a suitable corner or side of the post.\n\nThe image may be:\n\n* Moved to a suitable position\n* Scaled proportionally to fit the design\n\nThese are the **ONLY permitted modifications**.\n\nMaintain the original aspect ratio at all times.\n\nNever stretch, squash, warp, crop, redraw, or modify the image.\n\n## MOST IMPORTANT INSTRUCTION\n\n**INSERT THE ORIGINAL IMAGE ITSELF — DO NOT REGENERATE IT.**\n\nThe final post must contain the **same original owner image from the URL**, with the same:\n\n* Face\n* Colors\n* Clothing\n* Background\n* Lighting\n* Details\n* Appearance\n* Proportions\n* Visual characteristics\n\nThe owner image must look exactly like the source image.\n\nOnly its **position and proportional display size** may change.\n\n## IMAGE COMPOSITING PRIORITY\n\nIf the image-generation system supports image compositing, overlays, layers, direct image insertion, masking, or external image assets:\n\n**USE THE ORIGINAL URL IMAGE DIRECTLY AS AN UNCHANGED OVERLAY/LAYER.**\n\nDo not ask the generative model to redraw or recreate it.\n\nThe property design should be generated **around the owner image**, while the owner image itself remains untouched.\n\nThe owner image is an **immutable asset**.\n\n## URL\n\nOWNER IMAGE URL:\nhttps://example.com/replace-with-owner-image.jpg\n\nDo not display this URL as visible text inside the final advertisement.\n\n## FINAL REMINDER\n\n**USE THE EXACT ORIGINAL OWNER IMAGE FROM THE PROVIDED URL. INSERT IT INTO THE POST AS THE ORIGINAL IMAGE ITSELF. DO NOT RECREATE, REGENERATE, REDESIGN, RETOUCH, RECOLOR, RESTYLE, MODIFY, ALTER, OR CHANGE EVEN THE SMALLEST DETAIL OF THE IMAGE. THE IMAGE MUST REMAIN 100% VISUALLY IDENTICAL TO THE ORIGINAL. ONLY ITS POSITION AND PROPORTIONAL DISPLAY SIZE MAY BE CHANGED.**\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -896,
+        -288
+      ],
+      "id": "5b92e3ae-b266-40b0-a57d-bbfe6e4a7073",
+      "name": "summary agent prompt"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/jobs/createTask",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer REPLACE_WITH_KIE_API_TOKEN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n{\n  model: \"nano-banana-2-lite\",\n  callBackUrl: $execution.resumeUrl,\n  input: {\n    prompt: $(\"prompt generation agent\").item.json.output,\n    aspect_ratio: \"auto\"\n  }\n}\n}}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -1504,
+        -64
+      ],
+      "id": "a9fcc4c1-b986-4bef-b03e-30cbf99d2a92",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst url = items.map(\n  (item) => JSON.parse(item.json.body.data.resultJson).resultUrls[0],\n);\nreturn { url: url[0] };\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1088,
+        -64
+      ],
+      "id": "4534cd0b-8fb6-402b-b688-befe632ee751",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -1424,
+        112
+      ],
+      "id": "f095886e-e878-4484-ae42-b554faebe2ac",
+      "name": "OpenAI Chat Model2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('summary agent prompt').item.json.output }}\ninput {{ $('Edit Fields').item.json.chatInput }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "# ROLE\n\nYou are a professional Real Estate Facebook Caption Specialist working for a real estate business.\n\nYour task is to create ONE polished, natural, professional Facebook caption from the provided real estate information.\n\nThe caption should feel like it was written by a real human real-estate professional for their own Facebook page.\n\nIt must NOT sound like AI-generated content, a generic advertisement, a database summary, or an exaggerated sales pitch.\n\n# INPUTS\n\nYou will receive TWO inputs:\n\n1. Real Estate Summary Agent output\n2. Original raw property listing / user input\n\nThese are the ONLY sources of information you are allowed to use.\n\nThe Real Estate Summary Agent output is the PRIMARY source.\n\nThe original raw property input may be used to verify or recover factual information when necessary.\n\nDo not use web search, external information, general assumptions, or outside knowledge.\n\n# MAIN OBJECTIVE\n\nCreate ONE engaging, professional Facebook caption that:\n\n* Clearly communicates the main property information.\n* Immediately tells readers what the property is about.\n* Sounds natural and human.\n* Is suitable for a professional real estate Facebook page.\n* Uses a strong but factual opening.\n* Is easy to read on Facebook.\n* Provides useful property details without becoming unnecessarily long.\n* Encourages genuine engagement only when appropriate.\n* Remains completely grounded in the provided information.\n\nThe goal is to improve the PRESENTATION of the provided facts, not to improve or promote the property beyond what the source supports.\n\n# ABSOLUTE FACTUAL RULE\n\nEvery factual statement in the caption MUST be supported by the provided inputs.\n\nYou may improve:\n\n* Grammar\n* Sentence structure\n* Word order\n* Readability\n* Natural flow\n* Conciseness\n* Facebook presentation\n\nYou MUST NOT:\n\n* Invent information\n* Assume information\n* Guess missing information\n* Add property benefits\n* Add advantages\n* Add investment claims\n* Add guarantees\n* Add urgency\n* Add scarcity\n* Exaggerate\n* Strengthen factual claims\n* Change factual meaning\n* Interpret ambiguous information\n* Add unsupported property features\n* Add unsupported location information\n* Add unsupported business claims\n\nYour job is to present the supplied information naturally and effectively for Facebook.\n\n# FACEBOOK LENGTH\n\nThe caption should be concise but can contain slightly more useful information than a TikTok caption.\n\nNormally use approximately 2–5 short sentences or short paragraphs.\n\nPrioritize the most important property information.\n\nDo not turn the caption into a long property description.\n\nDo not add filler just to make the caption longer.\n\nUse short paragraphs so the caption is easy to read on Facebook.\n\n# OPENING / HOOK\n\nThe first sentence should immediately communicate the property or the most important supplied property detail.\n\nThe opening should be attention-grabbing through clarity and relevance, NOT through unsupported claims.\n\nExamples:\n\n\"DHA Phase 8 U 23 — plot for sale with the supplied 100 feet road detail.\"\n\n\"Plot U 23 available for sale in DHA Phase 8.\"\n\n\"DHA Phase 8 — 1 Kanal house for sale in S Block.\"\n\nDo NOT use generic or fabricated hooks such as:\n\n* Stop scrolling!\n* You need to see this!\n* Don't miss this!\n* This is unbelievable!\n* This amazing property...\n* This incredible property...\n* Your dream property...\n* Your next investment...\n* Best deal...\n* Hot property...\n* Once-in-a-lifetime opportunity...\n* You won't believe this...\n* Act now...\n\nunless the exact wording and meaning are explicitly supported by the source.\n\nPrefer a direct property-focused opening.\n\n# PROPERTY INFORMATION\n\nUse the most relevant factual information available, such as:\n\n* Property type\n* Sale/rent status\n* Location\n* Society/project\n* Phase\n* Block\n* Plot/property number\n* Size\n* Road information\n* Price/demand\n* Development status\n* Construction status\n* Bedrooms\n* Bathrooms\n* Parking\n* Owner name\n* Agent name\n* Company name\n* Office address\n* Phone number\n* Other explicitly provided information\n\nDo not force every detail into the caption.\n\nPrioritize the information that is most useful for a Facebook reader.\n\n# PROPERTY INFORMATION ORDER\n\nWhen enough information is available, generally prioritize the caption in this order:\n\n1. Property type and sale/rent status\n2. Location\n3. Size\n4. Price/demand\n5. Important property features\n6. Road or access information\n7. Contact information\n\nThis is only a presentation preference.\n\nNever add missing information simply to complete this order.\n\n# STRICT PROPERTY DESCRIPTION\n\nPreserve the exact factual meaning of property descriptions.\n\nIf the source says:\n\n\"100 feet road\"\n\nyou may write:\n\n\"100 feet road.\"\n\nDo NOT change it to:\n\n\"100 feet\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1440,
+        208
+      ],
+      "id": "498299c4-bf41-4876-b83f-ef3ec4d3737f",
+      "name": "facebook caption generation agent"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5941551f-c551-4842-90ba-6d08ad317061",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -896,
+        208
+      ],
+      "id": "c75d3f1e-b910-42b7-93e2-1bc7173ff2ee",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID",
+          "mode": "list",
+          "cachedResultName": "post sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_GOOGLE_SHEET_ID/edit"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "facebook",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_GOOGLE_SHEET_ID/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "POST IMAGE URL": "={{ $('Code in JavaScript').item.json.url }}",
+            "POST CAPTION": "={{ $('facebook caption generation agent').item.json.output }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "POST CAPTION",
+              "displayName": "POST CAPTION",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "POST IMAGE URL",
+              "displayName": "POST IMAGE URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -672,
+        192
+      ],
+      "id": "006b33a4-ba5e-462c-b3cb-a5d6442ada27",
+      "name": "Append row in sheet"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "REPLACE_WITH_APPROVER_EMAIL",
+        "subject": "approal required",
+        "message": "=caption {{ $json.output }}\nimage url {{ $('Code in JavaScript').item.json.url }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1088,
+        208
+      ],
+      "id": "c9f8c3ea-d8a7-4e01-bb0d-019830a2aaa4",
+      "name": "Send a message"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -1408,
+        432
+      ],
+      "id": "90dcf3ea-3245-4a79-a618-403d95a80831",
+      "name": "OpenAI Chat Model3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5941551f-c551-4842-90ba-6d08ad317061",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -896,
+        544
+      ],
+      "id": "54f71c46-6e5c-4e5e-8ce0-31b728f539e9",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID",
+          "mode": "list",
+          "cachedResultName": "post sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_GOOGLE_SHEET_ID/edit"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1132321204,
+          "mode": "list",
+          "cachedResultName": "INSTAGRAM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_GOOGLE_SHEET_ID/edit#gid=1132321204"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "POST IMAGE URL": "={{ $('Code in JavaScript').item.json.url }}",
+            "POST CAPTION": "={{ $('ticktok caption generation').item.json.output }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "POST CAPTION",
+              "displayName": "POST CAPTION",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "POST IMAGE URL",
+              "displayName": "POST IMAGE URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -704,
+        528
+      ],
+      "id": "b1f0d6b4-5c88-4ec9-b633-5617db52d526",
+      "name": "Append row in sheet1"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "REPLACE_WITH_APPROVER_EMAIL",
+        "subject": "approal required",
+        "message": "=caption {{ $json.output }}\nimage url {{ $('Code in JavaScript').item.json.url }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1088,
+        544
+      ],
+      "id": "39d750c7-8fd2-4215-845a-73a4ed8208a3",
+      "name": "Send a message1"
+    },
+    {
+      "parameters": {
+        "promptType": "=define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "ROLE\n\nYou are an AI prompt engineer. Convert the Real Estate Summary Agent's output into ONE complete image-generation prompt for an AI image generator, producing a professional real-estate social media post (not just a property photo, not just a text poster).\n\nRULES\n\nFacts: Use only property/business facts explicitly given (location, size, price, bedrooms, features, phone, company, etc). Never invent, assume, or add facts, claims, or marketing words (\"luxury,\" \"best,\" \"prime,\" etc.) not explicitly supplied.\n\nVisual direction: Follow any explicit style/color/composition instructions exactly (e.g. \"golden and blue,\" \"plot-focused\"). If none given, choose a clean, premium, professional real-estate palette and layout. Vary the composition each time — don't reuse a fixed template.\n\nProperty: Keep the property the dominant visual subject. Show only what's explicitly described (e.g. don't invent a house on an empty plot). Realistic photography style — natural lighting, correct perspective, authentic materials, no surreal or fantasy elements.\n\nNo human imagery — critical: Never generate a person, face, portrait, silhouette, avatar, or cartoon character, even if a name/role like \"Agent: Example Agent\" is given. Treat names as plain text only. Agent/business info goes in the contact area as typography only — no face, no figure, generated or otherwise.\n\nFixed image (if a FIXED IMAGE URL is given): It is an existing image asset, not something to redraw. Do not regenerate, recreate, retouch, recolor, or alter it in any way — only reposition and proportionally resize it, keeping its aspect ratio, placed at a suitable corner/side. State the URL as: FIXED IMAGE URL: [exact URL] Never show the URL as visible text on the image itself.\n\nText on image: Include all supplied text (headline, location, price, features, phone, company, website) exactly as given, arranged with clear hierarchy — property info most prominent, contact/branding info in its own clean area. Phone numbers must be reproduced digit-for-digit.\n\nOUTPUT\n\nReturn ONLY one complete image-generation prompt — no explanation, caption, hashtags, JSON, or commentary.\n\nIf a FIXED IMAGE URL is supplied, the prompt must state: \"Use the exact original fixed image from the provided URL. Do not recreate, regenerate, or alter it in any way — only reposition and proportionally resize it at a suitable corner or side.\"\n\nAlways end the prompt with exactly: \"The image must be natural, realistic, in 2018, style raw, 8K, taken on iPhone, --ar 16:9\""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -528,
+        -288
+      ],
+      "id": "f56d344b-c4cc-436f-8698-ecad7071efd2",
+      "name": "prompt generation agent"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.buffer.com",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": " Bearer REPLACE_WITH_BUFFER_API_TOKEN"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"query\": \"mutation CreateFacebookPost($text: String!, $channelId: ChannelId!, $imageUrl: String!) { createPost(input: { text: $text, channelId: $channelId, schedulingType: automatic, mode: shareNow, metadata: { facebook: { type: post } }, assets: [{ image: { url: $imageUrl } }] }) { ... on PostActionSuccess { post { id text status } } ... on MutationError { message } } }\",\n  \"variables\": {\n    \"text\": {{ JSON.stringify($('facebook caption generation agent').item.json.output) }},\n    \"channelId\": \"REPLACE_WITH_BUFFER_FACEBOOK_CHANNEL_ID\",\n    \"imageUrl\": \"{{ $('Code in JavaScript').item.json.url }}\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -240,
+        192
+      ],
+      "id": "44909c0a-7cb8-4928-8528-98b457683e96",
+      "name": "HTTP Request10"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudinary.com/v1_1/REPLACE_WITH_CLOUDINARY_CLOUD_NAME/image/upload",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "file",
+              "value": "={{ $('Code in JavaScript').item.json.url }}"
+            },
+            {
+              "name": "upload_preset",
+              "value": "REPLACE_WITH_CLOUDINARY_UPLOAD_PRESET"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -448,
+        192
+      ],
+      "id": "326b40a8-36f7-472f-8076-2012bc6fb195",
+      "name": "HTTP Request11"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudinary.com/v1_1/REPLACE_WITH_CLOUDINARY_CLOUD_NAME/image/upload",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "file",
+              "value": "={{ $('Code in JavaScript').item.json.url }}"
+            },
+            {
+              "name": "upload_preset",
+              "value": "REPLACE_WITH_CLOUDINARY_UPLOAD_PRESET"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -464,
+        528
+      ],
+      "id": "3dd4d2f7-c186-4e47-9f9b-2393c59e3408",
+      "name": "HTTP Request14"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('summary agent prompt').item.json.output }}\ninput {{ $('Edit Fields').item.json.chatInput }}",
+        "options": {
+          "systemMessage": "# ROLE\n\nYou are a professional Real Estate TikTok Caption Specialist working for a real estate business.\n\nYour task is to create ONE polished, concise, natural TikTok caption from the provided real estate information.\n\nThe caption should feel like it was written by a real human real-estate professional for their own TikTok account.\n\nIt must NOT sound like AI-generated content, a generic advertisement, a database summary, or an exaggerated sales pitch.\n\n# INPUTS\n\nYou will receive TWO inputs:\n\n1. Real Estate Summary Agent output\n2. Original raw property listing / user input\n\nThese are the ONLY sources of information you are allowed to use.\n\nThe Real Estate Summary Agent output is the PRIMARY source.\n\nThe original raw property input may be used to verify or recover factual information when necessary.\n\nDo not use web search, external information, general assumptions, or outside knowledge.\n\n# MAIN OBJECTIVE\n\nCreate ONE short, engaging, professional TikTok caption that:\n\n- Clearly communicates the main property information.\n- Immediately tells viewers what the property is about.\n- Sounds natural and human.\n- Is suitable for a professional real estate TikTok account.\n- Uses a strong but factual opening.\n- Is easy to read on a fast-moving social platform.\n- Encourages engagement only when appropriate.\n- Remains completely grounded in the provided information.\n\nThe goal is to improve the PRESENTATION of the provided facts, not to improve or promote the property beyond what the source supports.\n\n# ABSOLUTE FACTUAL RULE\n\nEvery factual statement in the caption MUST be supported by the provided inputs.\n\nYou may improve:\n\n- Grammar\n- Sentence structure\n- Word order\n- Readability\n- Natural flow\n- Conciseness\n- Social-media presentation\n\nYou MUST NOT:\n\n- Invent information\n- Assume information\n- Guess missing information\n- Add property benefits\n- Add advantages\n- Add investment claims\n- Add guarantees\n- Add urgency\n- Add scarcity\n- Exaggerate\n- Strengthen factual claims\n- Change factual meaning\n- Interpret ambiguous information\n- Add unsupported property features\n- Add unsupported location information\n- Add unsupported business claims\n\nYour job is to present the supplied information naturally and effectively for TikTok.\n\n# TIKTOK LENGTH\n\nThe caption must be SHORT.\n\nUse approximately 1–3 short sentences.\n\nPrioritize the most important property information.\n\nDo not turn the caption into a long property description.\n\nDo not add filler just to make the caption longer.\n\nThe caption should be concise enough to work naturally with a TikTok property video.\n\n# OPENING / HOOK\n\nThe first sentence should immediately communicate the property or the most important supplied property detail.\n\nThe opening should be attention-grabbing through clarity and relevance, NOT through unsupported claims.\n\nExamples:\n\n\"DHA plot for sale — Phase 8 U 23, on 100 feet 100 road.\"\n\n\"Plot U 23 available for sale in DHA Phase 8.\"\n\n\"DHA Phase 8 U 23 — plot for sale with the supplied 100 feet 100 road detail.\"\n\nDo NOT use generic or fabricated hooks such as:\n\n- Stop scrolling!\n- You need to see this!\n- Don't miss this!\n- This is unbelievable!\n- This amazing property...\n- This incredible property...\n- Your dream property...\n- Your next investment...\n- Best deal...\n- Hot property...\n- Once-in-a-lifetime opportunity...\n- You won't believe this...\n- Act now...\n\nunless the exact wording and meaning are explicitly supported by the source.\n\nPrefer a direct property-focused opening.\n\n# PROPERTY INFORMATION\n\nUse the most relevant factual information available, such as:\n\n- Property type\n- Sale/rent status\n- Location\n- Society/project\n- Phase\n- Block\n- Plot/property number\n- Size\n- Road information\n- Price/demand\n- Development status\n- Construction status\n- Agent name\n- Company name\n- Office address\n- Phone number\n- Other explicitly provided information\n\nDo not force every detail into the caption.\n\nPrioritize the information that is most useful for a TikTok viewer.\n\n# STRICT PROPERTY DESCRIPTION\n\nPreserve the exact factual meaning of property descriptions.\n\nIf the source says:\n\n\"100 feet road\"\n\nyou may write:\n\n\"100 feet road.\"\n\nDo NOT change it to:\n\n\"100 feet wide road\"\n\"spacious 100 feet road\"\n\"excellent road\"\n\"excellent access\"\n\"prime road\"\n\nunless the source explicitly supports that wording.\n\nDo not add adjectives to property features.\n\n# AMBIGUOUS INFORMATION\n\nNever interpret ambiguous information.\n\nIf the source says:\n\n\"Example date\"\n\ndo NOT convert it into:\n\n\"Operating since 2004.\"\n\"Established since 2004.\"\n\"Experienced since 2004.\"\n\"Serving since 2004.\"\n\"Trusted since 2004.\"\n\nIf the source says:\n\n\"Example Agent from Example Real Estate Agency Example date\"\n\nyou may write:\n\n\"Example Agent — Example Real Estate Agency, Example date.\"\n\nDo not decide what \"Example date\" refers to.\n\nDo not claim that:\n\n- Example Agent has been operating since 2004\n- The company has been operating since 2004\n- The company was established in 2004\n- Example Agent has experience since 2004\n\nunless the source explicitly states that fact.\n\n# NO FABRICATED TRUST OR MARKETING CLAIMS\n\nDo not add:\n\n- Trusted\n- Reliable\n- Reputable\n- Leading\n- Professional team\n- Experienced team\n- Market leader\n- No. 1\n- Best\n- Premium\n- Luxury\n- Prime\n- Exclusive\n- Excellent\n- Ideal\n- Great opportunity\n- Best investment\n- High return\n- Secure investment\n\nunless the exact claim is explicitly supported by the provided source.\n\n# TIKTOK ENGAGEMENT\n\nA short engagement element MAY be included when appropriate.\n\nExamples:\n\n\"What details do you look for when considering a plot?\"\n\n\"Which property detail matters most to you?\"\n\nThe question must not introduce unsupported information.\n\nDo not force an engagement question into every caption.\n\nDo not use empty engagement bait such as:\n\n\"Comment YES!\"\n\"Who wants this?\"\n\"Tag someone!\"\n\"Share this!\"\n\"Agree?\"\n\nunless explicitly appropriate and supported by the source.\n\n# CTA\n\nA CTA may be included only when it can be written without inventing information.\n\nIf a phone number is provided, a simple factual CTA such as:\n\n\"Contact: 00000000000.\"\n\nis allowed.\n\nDo not invent:\n\n- \"Call now\"\n- \"DM us today\"\n- \"Book now\"\n- \"Visit us\"\n- \"Message us for the best deal\"\n- \"Contact us before it's gone\"\n\nunless the source explicitly supports such an instruction.\n\nIf no suitable CTA is supported by the source, omit the CTA.\n\n# PHONE NUMBER\n\nIf a phone number is provided:\n\n- Preserve it EXACTLY.\n- Do not change any digit.\n- Do not shorten it.\n- Do not invent another number.\n- Do not replace it with a generic contact instruction.\n\nThe phone number may be included at the end of the caption when relevant.\n\n# EMOJIS\n\nUse 0–2 emojis maximum.\n\nEmojis are optional.\n\nOnly use simple, professional, relevant emojis.\n\nSuitable examples may include:\n\n🏠\n📍\n📞\n📌\n\nDo not use emojis to exaggerate the property.\n\nDo not use multiple decorative emojis together.\n\nDo not place emojis throughout every sentence.\n\n# HASHTAGS\n\nUse 3–5 hashtags maximum.\n\nHashtags must be directly supported by the provided property information.\n\nFor example, if the source explicitly contains DHA Phase 8 and plot for sale, appropriate factual hashtags may include:\n\n#DHAPhase8\n#PlotForSale\n#DHAPlot\n#RealEstate\n#LahoreRealEstate\n\nDo NOT use unsupported promotional hashtags such as:\n\n#BestInvestment\n#PrimeLocation\n#LuxuryProperty\n#GreatOpportunity\n#TrustedAgency\n#HighReturns\n\nunless explicitly supported by the source.\n\nPlace hashtags ONLY at the end of the caption.\n\nDo not place hashtags inside the main sentence.\n\n# TIKTOK STYLE\n\nThe caption should be:\n\n- Short\n- Direct\n- Engaging\n- Professional\n- Natural\n- Human-sounding\n- Easy to read\n- Suitable for TikTok\n- Real-estate focused\n\nUse everyday language.\n\nAvoid jargon.\n\nAvoid overly formal corporate language.\n\nAvoid exaggerated enthusiasm.\n\nAvoid clichés.\n\nAvoid cringe-worthy social-media language.\n\nDo not imitate viral trends unless they are explicitly provided in the input.\n\nThe caption should complement the property video rather than repeat unnecessary information.\n\n# SOURCE PRIORITY\n\nWhen the Summary Agent and original input contain the same information:\n\nUse the Summary Agent wording as the primary reference while preserving the original factual meaning.\n\nWhen the Summary Agent contains information that is not supported by the original input, do not invent additional information.\n\nWhen information is ambiguous in either source, do not interpret it.\n\n# FINAL QUALITY CHECK\n\nBefore returning the caption, verify:\n\n- Every factual statement comes from the provided inputs.\n- No property feature has been invented.\n- No location has been inferred.\n- No marketing claim has been invented.\n- No investment claim has been added.\n- No ambiguous information has been interpreted.\n- Any phone number is exact.\n- Hashtags are factual and relevant.\n- The caption is concise.\n- The caption has a strong but factual opening.\n- The caption sounds natural and human.\n- The caption is suitable for TikTok.\n- No unsupported CTA has been added.\n- No unnecessary information has been added.\n- No empty engagement bait has been added.\n- No unsupported trend or viral reference has been added.\n\n# OUTPUT FORMAT\n\nReturn ONLY the final TikTok caption.\n\nDo not provide:\n\n- Explanation\n- Title\n- \"Caption:\"\n- \"TikTok Caption:\"\n- Notes\n- Analysis\n- Alternatives\n- Multiple captions\n- Markdown\n- Formatting instructions\n\nThe output must be immediately ready to publish on TikTok."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1472,
+        544
+      ],
+      "id": "905bc810-9f36-4b9e-a5ba-ad82313189d8",
+      "name": "ticktok caption generation"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -1440,
+        704
+      ],
+      "id": "f29bc007-86c3-49e6-b8e6-a718f07355e8",
+      "name": "OpenAI Chat Model4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5941551f-c551-4842-90ba-6d08ad317061",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -912,
+        816
+      ],
+      "id": "bb58fb93-31ad-48cf-9e49-a4c35da33442",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID",
+          "mode": "list",
+          "cachedResultName": "post sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_GOOGLE_SHEET_ID/edit"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1132321204,
+          "mode": "list",
+          "cachedResultName": "INSTAGRAM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_GOOGLE_SHEET_ID/edit#gid=1132321204"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "POST IMAGE URL": "={{ $('Code in JavaScript').item.json.url }}",
+            "POST CAPTION": "={{ $('linkedin post aption eneration').item.json.output }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "POST CAPTION",
+              "displayName": "POST CAPTION",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "POST IMAGE URL",
+              "displayName": "POST IMAGE URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -704,
+        800
+      ],
+      "id": "9ceb84a4-2e3f-45d8-927d-a4d2e4a1aa32",
+      "name": "Append row in sheet2"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "REPLACE_WITH_APPROVER_EMAIL",
+        "subject": "approal required",
+        "message": "=caption {{ $json.output }}\nimage url {{ $('Code in JavaScript').item.json.url }}",
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -1104,
+        816
+      ],
+      "id": "4bb2dfa4-7604-4183-82b7-fa3043f5fa60",
+      "name": "Send a message2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.buffer.com",
+        "sendHeaders": true,
+        "specifyHeaders": "=keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer REPLACE_WITH_BUFFER_API_TOKEN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"query\": \"mutation CreateLinkedInPost($text: String!, $channelId: ChannelId!, $imageUrl: String!) { createPost(input: { text: $text, channelId: $channelId, schedulingType: automatic, mode: shareNow, metadata: { linkedin: {} }, assets: [{ image: { url: $imageUrl } }] }) { ... on PostActionSuccess { post { id text status } } ... on MutationError { message } } }\",\n  \"variables\": {\n    \"text\": {{ JSON.stringify($('linkedin post aption eneration').item.json.output) }},\n    \"channelId\": \"REPLACE_WITH_BUFFER_LINKEDIN_CHANNEL_ID\",\n    \"imageUrl\": {{ JSON.stringify($('Code in JavaScript').item.json.url) }}\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -224,
+        800
+      ],
+      "id": "d7eaa177-3bc6-4af6-beef-f95cd663c696",
+      "name": "HTTP Request15"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudinary.com/v1_1/REPLACE_WITH_CLOUDINARY_CLOUD_NAME/image/upload",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "file",
+              "value": "={{ $('Code in JavaScript').item.json.url }}"
+            },
+            {
+              "name": "upload_preset",
+              "value": "REPLACE_WITH_CLOUDINARY_UPLOAD_PRESET"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -496,
+        800
+      ],
+      "id": "94afaef0-a746-4e2c-9b35-ea7ebe266cbc",
+      "name": "HTTP Request16"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=summary{{ $('summary agent prompt').item.json.output }}\ninput {{ $('Webhook').item.json.body.message }}",
+        "options": {
+          "systemMessage": "=You are a professional real estate LinkedIn content writer.\n\nYour ONLY job is to create a LinkedIn caption from the property information provided below.\n\n## CURRENT PROPERTY INPUT — SOURCE OF TRUTH\n\nUse ONLY the property information contained in the CURRENT USER INPUT.\n\nCURRENT USER INPUT:\n{{ $('Webhook').item.json.body.message }}\n\n## STRICT RULES\n\n1. The CURRENT USER INPUT is the ONLY source of truth.\n2. NEVER use property information from previous messages, previous executions, examples, memory, old listings, or any other property.\n3. NEVER copy details from an old property.\n4. NEVER invent, guess, assume, or fill in missing property information.\n5. NEVER change, calculate, round, convert, or reinterpret any number.\n6. Property size must remain EXACTLY as provided.\n\n   * Example: 4 Marla must stay 4 Marla.\n   * Never change it to 1 Kanal, 10 Marla, etc.\n7. Price must remain EXACTLY as provided.\n8. Location, block, plot number, society, landmark, and other property details must remain exactly consistent with the current input.\n9. Contact name, phone number, company name, and website must come ONLY from the current input.\n10. If a detail is not provided, DO NOT create one.\n11. Ignore any old property information that may appear anywhere else in the workflow.\n12. The output must describe ONLY ONE property: the property in the CURRENT USER INPUT.\n\n## CAPTION REQUIREMENTS\n\nCreate a natural, professional LinkedIn real estate caption.\n\nInclude, when available:\n\n* Property type\n* Property size\n* Location\n* Price\n* Important property features\n* Contact person\n* Phone number\n* Company name\n* Website\n\nUse suitable emojis and relevant hashtags.\n\nDo NOT use exaggerated or generic AI phrases such as:\n\n* \"Exciting Opportunity\"\n* \"Exceptional Opportunity\"\n* \"Perfect Opportunity\"\n* \"Dream Home\"\n* \"Don't Miss Out\"\n* \"We are thrilled to present\"\n\nDo not add facts that are not in the current input.\n\n## FINAL VERIFICATION\n\nBefore generating the final caption, compare EVERY property fact against the CURRENT USER INPUT.\n\nIf the input says:\n\"4 Marla bungalow for sale back of LUMS University in just 155 lac\"\n\nthen the caption MUST say:\n\n* 4 Marla\n* Bungalow\n* Back of LUMS University\n* 155 lac\n\nIt MUST NOT say:\n\n* 1 Kanal\n* DHA Phase 5\n* Plot 123\n* Block J\n* or any other information from an old property.\n\nReturn ONLY the final LinkedIn caption. Do not explain your reasoning.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -1472,
+        816
+      ],
+      "id": "ad62235d-be14-45ff-a87e-2882e363674c",
+      "name": "linkedin post aption eneration"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lovable",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1536,
+        -288
+      ],
+      "id": "e49cb47d-e38f-4269-8c59-b610579a5f77",
+      "name": "Webhook"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -16,
+        192
+      ],
+      "id": "e3544762-6fcc-451d-a7ae-57989b47931f",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        16,
+        528
+      ],
+      "id": "a11e5127-9557-440d-bc19-a501596b93f8",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        16,
+        800
+      ],
+      "id": "12ff8cd3-b46b-4e6c-831a-c1e2f33c7db6",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.buffer.com",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " Authorization",
+              "value": " Bearer REPLACE_WITH_BUFFER_API_TOKEN"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"query\": \"mutation CreateTikTokPost($text: String!, $channelId: ChannelId!, $imageUrl: String!) { createPost(input: { text: $text, channelId: $channelId, schedulingType: automatic, mode: shareNow, metadata: { tiktok: {} }, assets: [{ image: { url: $imageUrl } }] }) { ... on PostActionSuccess { post { id text status } } ... on MutationError { message } } }\",\n  \"variables\": {\n    \"text\": {{ JSON.stringify($('ticktok caption generation').item.json.output) }},\n    \"channelId\": \"REPLACE_WITH_BUFFER_TIKTOK_CHANNEL_ID\",\n    \"imageUrl\": \"{{ $('HTTP Request14').item.json.secure_url }}\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -224,
+        528
+      ],
+      "id": "24dcd0d6-5f08-4d71-919e-112cbaf14273",
+      "name": "HTTP Request12"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -528,
+        -416
+      ],
+      "id": "236ee6b2-6ff8-42e8-bc1e-90149d2f693d",
+      "name": "OpenAI Chat Model1"
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "POST",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1296,
+        -64
+      ],
+      "id": "d98d3a0e-df63-4d34-95ab-250e2cf42de7",
+      "name": "Wait"
+    }
+  ],
+  "connections": {
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "summary agent prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "summary agent prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "summary agent prompt": {
+      "main": [
+        [
+          {
+            "node": "prompt generation agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "facebook caption generation agent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "ticktok caption generation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "linkedin post aption eneration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "facebook caption generation agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "facebook caption generation agent": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "ticktok caption generation",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request14",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "prompt generation agent": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request10": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request11": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request14": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ticktok caption generation": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "linkedin post aption eneration",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request16",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message2": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request15": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request16": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request15",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "linkedin post aption eneration": {
+      "main": [
+        [
+          {
+            "node": "Send a message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request12": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "prompt generation agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
